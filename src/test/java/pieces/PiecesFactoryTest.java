@@ -16,18 +16,17 @@ public class PiecesFactoryTest {
         BoardConfig config = new BoardConfig(new Dimension(8), new Dimension(64*8));
 
         Position inputPos = new Position(2, 3);
-
-        Piece piece = PiecesFactory.createPieceByCode("PB", inputPos, config);
+        //PiecesFactory.createPieceByCode(EPieceType code, int playerId, Position pos, BoardConfig config) : Piece
+        Piece piece = PiecesFactory.createPieceByCode(EPieceType.B, 1, inputPos, config);
 
         assertNotNull(piece);
-        // המשך בדיקות...
     }
 
 
     @Test
     public void testCreatePieceByCode_InvalidCodeReturnsNull() {
         BoardConfig config = new BoardConfig(new Dimension(8), new Dimension(64 * 8));
-        Piece piece = PiecesFactory.createPieceByCode("INVALID_CODE", new Position(0, 0), config);
+        Piece piece = PiecesFactory.createPieceByCode(EPieceType.B, 1, new Position(0, 0), config);
         assertNull(piece, "Expected null for non-existent piece resources");
     }
 }

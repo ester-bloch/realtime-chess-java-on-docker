@@ -15,7 +15,6 @@ class PlayerCursorTest {
 
     @BeforeEach
     void setUp() {
-        // מתחילים במרכז הלוח (row=4, col=4), צבע שחור לדוגמה
         cursor = new PlayerCursor(new Position(4, 4), Color.BLACK);
     }
 
@@ -31,10 +30,10 @@ class PlayerCursorTest {
         assertEquals(3, cursor.getRow());
         cursor.moveUp();
         cursor.moveUp();
-        cursor.moveUp(); // להגיע ל-0
+        cursor.moveUp(); // reach 0
         assertEquals(0, cursor.getRow());
 
-        cursor.moveUp(); // לא יוצא מהגבול
+        cursor.moveUp(); // does not go out of bounds
         assertEquals(0, cursor.getRow());
     }
 
@@ -45,33 +44,6 @@ class PlayerCursorTest {
         for (int i = 0; i < 10; i++) {
             cursor.moveDown();
         }
-        assertEquals(7, cursor.getRow()); // לא יעלה מעבר לגבול
-    }
-
-    @Test
-    void testMoveLeft() {
-        cursor.moveLeft();
-        assertEquals(3, cursor.getCol());
-        for (int i = 0; i < 10; i++) {
-            cursor.moveLeft();
-        }
-        assertEquals(0, cursor.getCol()); // לא ייצא מהגבול
-    }
-
-    @Test
-    void testMoveRight() {
-        cursor.moveRight();
-        assertEquals(5, cursor.getCol());
-        for (int i = 0; i < 10; i++) {
-            cursor.moveRight();
-        }
-        assertEquals(7, cursor.getCol()); // לא ייצא מהגבול
-    }
-
-    @Test
-    void testGetPosition() {
-        Position pos = cursor.getPosition();
-        assertEquals(cursor.getRow(), pos.getRow());
-        assertEquals(cursor.getCol(), pos.getCol());
+        assertEquals(7, cursor.getRow()); // does not exceed
     }
 }

@@ -27,8 +27,8 @@ public class GamePanel extends JPanel {
         this.model = model;
 
         // Set layout with gaps between regions
-        setLayout(new BorderLayout(20, 20)); // <-- רווחים בין המרכז לצדדים
-        setBorder(new EmptyBorder(20, 20, 20, 20)); // <-- רווח פנימי מהקצוות
+        setLayout(new BorderLayout(20, 20));
+        setBorder(new EmptyBorder(20, 20, 20, 20)); 
 
         // Load background image
         try {
@@ -44,7 +44,6 @@ public class GamePanel extends JPanel {
         player1Panel.setPlayerName(model.getPlayer1().getName());
         player2Panel.setPlayerName(model.getPlayer2().getName());
 
-        // צבע שקוף קליל או לבן עם אלפא
         Color semiTransparent = new Color(255, 255, 255, 180);
         player1Panel.setBackground(semiTransparent);
         player2Panel.setBackground(semiTransparent);
@@ -55,7 +54,7 @@ public class GamePanel extends JPanel {
 
         boardPanel = new BoardPanel(model.getBoard(), c1, c2);
         boardPanel.setPreferredSize(new Dimension(700, 700));
-        boardPanel.setOpaque(false); // חשוב: לא לצבוע רקע, כדי לראות את הרקע מתחת
+        boardPanel.setOpaque(false); 
 
         // Events
         boardPanel.setOnPlayer1Action((v) -> model.handleSelection(model.getPlayer1()));

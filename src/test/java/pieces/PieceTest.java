@@ -222,7 +222,6 @@
 //        piece.move(target);
 //        assertEquals(EState.MOVE, piece.getCurrentStateName());
 //
-//        // העדכון יעשה ב-update()
 //        piece.update();
 //
 //        assertEquals(target.getRow(), piece.getRow());

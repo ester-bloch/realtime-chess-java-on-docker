@@ -43,7 +43,7 @@ public class GraphicsData implements IGraphicsData {
         this.currentFrame = 0;
         this.lastFrameTimeNanos = System.nanoTime();
     }
-
+    
     /**
      * Updates the animation frame based on elapsed time.
      */

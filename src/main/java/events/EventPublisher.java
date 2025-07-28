@@ -8,7 +8,7 @@ import java.util.Map;
 public class EventPublisher {
     private static final EventPublisher instance = new EventPublisher();
 
-    private final Map<String, List<IEventListener>> listenersMap = new HashMap<>();
+    private final Map<EEventType, List<IEventListener>> listenersMap = new HashMap<>();
 
     private EventPublisher() {}
 
@@ -16,11 +16,11 @@ public class EventPublisher {
         return instance;
     }
 
-    public void subscribe(String topic, IEventListener listener) {
+    public void subscribe(EEventType topic, IEventListener listener) {
         listenersMap.computeIfAbsent(topic, k -> new ArrayList<>()).add(listener);
     }
 
-    public void unsubscribe(String topic, IEventListener listener) {
+    public void unsubscribe(EEventType topic, IEventListener listener) {
         List<IEventListener> listeners = listenersMap.get(topic);
         if (listeners != null) {
             listeners.remove(listener);
@@ -30,7 +30,7 @@ public class EventPublisher {
         }
     }
 
-    public void publish(String topic, GameEvent event) {
+    public void publish(EEventType topic, GameEvent event) {
         List<IEventListener> listeners = listenersMap.get(topic);
         if (listeners != null) {
             for (IEventListener listener : listeners) {

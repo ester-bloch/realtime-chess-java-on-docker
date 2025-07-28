@@ -9,6 +9,7 @@ public enum EPieceType {
     R("R", false, 30)
     ;
 
+
     private String val;
     private boolean canSkip;
     private int score;

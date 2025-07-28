@@ -18,14 +18,11 @@ class GameTest {
 
     @BeforeEach
     void setup() {
-        // יצירת אובייקטים מוקים
         player1 = mock(IPlayer.class);
         player2 = mock(IPlayer.class);
 
-        // כאן נשתמש באובייקט אמיתי ל-BoardConfig
         boardConfig = new BoardConfig(new board.Dimension(8), new board.Dimension(512));
 
-        // יצירת המשחק עם השחקנים והקונפיגורציה
         game = new Game(boardConfig, player1, player2);
     }
 
@@ -46,7 +43,6 @@ class GameTest {
 
         game.handleSelection(player1);
 
-        // עדכון כדי לבצע את הפקודה
         game.update();
 
         verify(player1, times(1)).handleSelection(game.getBoard());
@@ -59,11 +55,9 @@ class GameTest {
 
         game.handleSelection(player2);
 
-        // לא אמור להוסיף פקודות אז עדכון לא יקרוא execute
         game.update();
 
         verify(player2, times(1)).handleSelection(game.getBoard());
-        // לא נבדוק execute כי לא הוספנו פקודה
     }
 
     @Test

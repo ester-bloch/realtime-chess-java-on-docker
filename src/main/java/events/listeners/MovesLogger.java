@@ -1,5 +1,6 @@
 package events.listeners;
 
+import events.EEventType;
 import events.GameEvent;
 import events.IEventListener;
 
@@ -11,7 +12,7 @@ public class MovesLogger implements IEventListener {
 
     @Override
     public void onEvent(GameEvent event) {
-        if (event.type.equals(GameEvent.PIECE_MOVED)) {
+        if (event.type.equals(EEventType.PIECE_MOVED)) {
             String moveDescription = (String) event.data;
             moves.add(moveDescription);
             System.out.println("Move: " + moveDescription);

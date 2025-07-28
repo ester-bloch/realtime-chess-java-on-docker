@@ -1,8 +1,13 @@
 package command;
 
+import events.EEventType;
 import events.EventPublisher;
 import events.GameEvent;
+import events.soundEvents.EventBus;
+import events.soundEvents.MovementEvent;
+import events.soundEvents.MovementEvent.MovementPhase;
 import interfaces.*;
+import pieces.EPieceType;
 import pieces.Position;
 import utils.LogUtils;
 
@@ -39,16 +44,19 @@ public class MoveCommand implements ICommand {
         if (!board.isMoveLegal(from, to)) {
             String mes = "Illegal move from " + from + " to " + to;
             EventPublisher.getInstance()
-                            .publish(GameEvent.PIECE_MOVED,
-                                    new GameEvent(GameEvent.PIECE_MOVED ,mes));
+                            .publish(EEventType.PIECE_MOVED,
+                                    new GameEvent(EEventType.PIECE_MOVED ,mes));
             LogUtils.logDebug(mes);
             return;
         }
         String mes = "Moving from " + from + " to " + to;
         EventPublisher.getInstance()
-                        .publish(GameEvent.PIECE_MOVED,
-                                new GameEvent(GameEvent.PIECE_MOVED, mes));
+                        .publish(EEventType.PIECE_MOVED,
+                                new GameEvent(EEventType.PIECE_MOVED, mes));
         LogUtils.logDebug(mes);
+        //    public MovementEvent(EPieceType pieceType, Position fromPosition, Position toPosition,
+            //    EState movementType, MovementPhase phase
+        EventBus.getInstance().publish(new MovementEvent(EPieceType.B, from, to, EState.MOVE, MovementPhase.STARTED));
         board.move(from, to);
     }
 }

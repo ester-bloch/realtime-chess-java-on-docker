@@ -32,7 +32,7 @@ public class Main {
 
             gameView.run();
 
-            frame.setContentPane(gameView); // מכניס את המשחק
+            frame.setContentPane(gameView); 
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

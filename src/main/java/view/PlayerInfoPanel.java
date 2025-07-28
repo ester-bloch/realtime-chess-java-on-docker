@@ -1,5 +1,6 @@
 package view;
 
+import events.EEventType;
 import events.EventPublisher;
 import events.GameEvent;
 import events.IEventListener;
@@ -40,11 +41,11 @@ public class PlayerInfoPanel extends JPanel implements IEventListener {
         add(topPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
 
-        EventPublisher.getInstance().subscribe(GameEvent.PIECE_MOVED, this);
-        EventPublisher.getInstance().subscribe(GameEvent.PIECE_JUMP, this);
-        EventPublisher.getInstance().subscribe(GameEvent.GAME_ENDED, this);
-        EventPublisher.getInstance().subscribe(GameEvent.GAME_STARTED, this);
-        EventPublisher.getInstance().subscribe(GameEvent.PIECE_CAPTURED, this);
+        EventPublisher.getInstance().subscribe(EEventType.PIECE_MOVED, this);
+        EventPublisher.getInstance().subscribe(EEventType.PIECE_JUMP, this);
+        EventPublisher.getInstance().subscribe(EEventType.GAME_ENDED, this);
+        EventPublisher.getInstance().subscribe(EEventType.GAME_STARTED, this);
+        EventPublisher.getInstance().subscribe(EEventType.PIECE_CAPTURED, this);
     }
 
     @Override

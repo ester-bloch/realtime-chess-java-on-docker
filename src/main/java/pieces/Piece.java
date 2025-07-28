@@ -74,16 +74,14 @@ public class Piece implements IPiece {
         currentState.update();
 
         if (currentState.isActionFinished()) {
-            // עדכון המיקום הלוגי רק אחרי שהפעולה הסתיימה
             pos = new Position(currentState.getTargetRow(), currentState.getTargetCol());
 
             EState nextState = currentState.getPhysics().getNextStateWhenFinished();
 
             setState(nextState);
-            return; // עצור כדי לא לעבור שוב סטייט בפעם אחת
+            return; 
         }
 
-        // מעבר אוטומטי אם האנימציה הסתיימה
         if (currentState.getGraphics() != null && currentState.getGraphics().isAnimationFinished()) {
             EState nextState = currentState.getPhysics().getNextStateWhenFinished();
             setState(nextState);
