@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventBus {
     private static EventBus instance;
-    private final Map<Class<? extends IEvent>, List<IEventListener<? extends IEvent>>> listeners;
+    private final Map<Class<? extends IEvent>, List<IEventListener2<? extends IEvent>>> listeners;
 
     private EventBus() {
         this.listeners = new ConcurrentHashMap<>();
@@ -34,10 +34,10 @@ public class EventBus {
      * 
      * @param listener the listener to subscribe
      */
-    public <T extends IEvent> void subscribe(IEventListener<T> listener) {
+    public <T extends IEvent> void subscribe(IEventListener2<T> listener) {
         Class<T> eventType = listener.getEventType();
         listeners.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>())
-                .add((IEventListener<? extends IEvent>) listener);
+                .add((IEventListener2<? extends IEvent>) listener);
 
         LogUtils.logDebug("Subscribed listener for event type: " + eventType.getSimpleName());
     }
@@ -47,9 +47,9 @@ public class EventBus {
      * 
      * @param listener the listener to unsubscribe
      */
-    public <T extends IEvent> void unsubscribe(IEventListener<T> listener) {
+    public <T extends IEvent> void unsubscribe(IEventListener2<T> listener) {
         Class<T> eventType = listener.getEventType();
-        List<IEventListener<? extends IEvent>> eventListeners = listeners.get(eventType);
+        List<IEventListener2<? extends IEvent>> eventListeners = listeners.get(eventType);
         if (eventListeners != null) {
             eventListeners.remove(listener);
             LogUtils.logDebug("Unsubscribed listener for event type: " + eventType.getSimpleName());
@@ -64,15 +64,15 @@ public class EventBus {
     @SuppressWarnings("unchecked")
     public <T extends IEvent> void publish(T event) {
         Class<? extends IEvent> eventType = event.getClass();
-        List<IEventListener<? extends IEvent>> eventListeners = listeners.get(eventType);
+        List<IEventListener2<? extends IEvent>> eventListeners = listeners.get(eventType);
 
         if (eventListeners != null && !eventListeners.isEmpty()) {
             LogUtils.logDebug(
                     "Publishing event: " + event.getEventType() + " to " + eventListeners.size() + " listeners");
 
-            for (IEventListener<? extends IEvent> listener : eventListeners) {
+            for (IEventListener2<? extends IEvent> listener : eventListeners) {
                 try {
-                    ((IEventListener<T>) listener).onEvent(event);
+                    ((IEventListener2<T>) listener).onEvent(event);
                 } catch (Exception e) {
                     System.err.println("Error processing event " + event.getEventType() + ": " + e.getMessage());
                     LogUtils.logDebug("Error processing event " + event.getEventType() + ": " + e.getMessage());
@@ -88,7 +88,7 @@ public class EventBus {
      * @return number of listeners
      */
     public int getListenerCount(Class<? extends IEvent> eventType) {
-        List<IEventListener<? extends IEvent>> eventListeners = listeners.get(eventType);
+        List<IEventListener2<? extends IEvent>> eventListeners = listeners.get(eventType);
         return eventListeners != null ? eventListeners.size() : 0;
     }
 }

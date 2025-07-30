@@ -2,7 +2,7 @@ package events.soundEvents;
 
 import utils.LogUtils;
 
-public class CollisionSoundPlayer implements IEventListener<CollisionEvent>  {
+public class CollisionSoundPlayer implements IEventListener2<CollisionEvent>  {
     
     @Override
     public void onEvent(CollisionEvent event) {

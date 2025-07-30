@@ -1,6 +1,6 @@
 package events.soundEvents;
 
-public interface IEventListener<T extends IEvent> {
+public interface IEventListener2<T extends IEvent> {
      /**
      * Called when an event is published
      * @param event the event that occurred

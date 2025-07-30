@@ -25,8 +25,8 @@ public class MoveCommand implements ICommand {
     /**
      * Constructs a MoveCommand for moving a piece from one position to another.
      *
-     * @param from The starting position
-     * @param to The target position
+     * @param from  The starting position
+     * @param to    The target position
      * @param board The board instance
      */
     public MoveCommand(Position from, Position to, IBoard board) {
@@ -44,19 +44,23 @@ public class MoveCommand implements ICommand {
         if (!board.isMoveLegal(from, to)) {
             String mes = "Illegal move from " + from + " to " + to;
             EventPublisher.getInstance()
-                            .publish(EEventType.PIECE_MOVED,
-                                    new GameEvent(EEventType.PIECE_MOVED ,mes));
+                    .publish(EEventType.PIECE_MOVED,
+                            new GameEvent(EEventType.PIECE_MOVED, mes));
             LogUtils.logDebug(mes);
             return;
         }
         String mes = "Moving from " + from + " to " + to;
         EventPublisher.getInstance()
-                        .publish(EEventType.PIECE_MOVED,
-                                new GameEvent(EEventType.PIECE_MOVED, mes));
+                .publish(EEventType.PIECE_MOVED,
+                        new GameEvent(EEventType.PIECE_MOVED, mes));
         LogUtils.logDebug(mes);
-        //    public MovementEvent(EPieceType pieceType, Position fromPosition, Position toPosition,
-            //    EState movementType, MovementPhase phase
+        // public MovementEvent(EPieceType pieceType, Position fromPosition, Position
+        // toPosition,
+        // EState movementType, MovementPhase phase
         EventBus.getInstance().publish(new MovementEvent(EPieceType.B, from, to, EState.MOVE, MovementPhase.STARTED));
+        MovementEvent event = new MovementEvent(
+                EPieceType.P,  from,  to, EState.MOVE,
+                MovementEvent.MovementPhase.STARTED);
         board.move(from, to);
     }
 }

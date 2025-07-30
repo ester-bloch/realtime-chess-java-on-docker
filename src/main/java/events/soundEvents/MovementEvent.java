@@ -26,6 +26,15 @@ public class MovementEvent implements IEvent {
         this.movementType = movementType;
         this.phase = phase;
     }
+    public MovementEvent(EPieceType pieceType, Position fromPosition, Position toPosition ) {
+        this.timestamp = System.nanoTime();
+        this.pieceType = pieceType;
+         this.fromPosition = fromPosition;
+        this.toPosition = toPosition;
+     movementType = EState.MOVE;
+        this.phase = MovementPhase.STARTED;
+
+    }
     
     @Override
     public long getTimestamp() {

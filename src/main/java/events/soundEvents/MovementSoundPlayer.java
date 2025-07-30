@@ -3,6 +3,13 @@ package events.soundEvents;
 import utils.LogUtils;
 
 import javax.sound.sampled.*;
+
+import events.EEventType;
+import events.GameEvent;
+import events.IEventListener;
+import pieces.EPieceType;
+import pieces.Position;
+
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -13,20 +20,20 @@ import java.util.Random;
  * Plays movement sounds when movement events occur
  * Uses the actual audio files from the Audio resources directory
  */
-public class MovementSoundPlayer implements IEventListener<MovementEvent> {
+public class MovementSoundPlayer implements IEventListener2<MovementEvent> , IEventListener{
     
     private static final Map<String, Clip> audioCache = new HashMap<>();
     private static final Random random = new Random();
     
     @Override
     public void onEvent(MovementEvent event) {
-        if (event.getPhase() == MovementEvent.MovementPhase.STARTED) {
+        // if (event.getPhase() == MovementEvent.MovementPhase.STARTED) {
             String soundFile = getSoundFileForMovement(event);
             playSoundAsync(soundFile);
             
             LogUtils.logDebug("Playing movement sound: " + soundFile + 
                              " for " + event.getPieceType() + " " + event.getMovementType());
-        }
+        // }
     }
     
     @Override
@@ -41,7 +48,8 @@ public class MovementSoundPlayer implements IEventListener<MovementEvent> {
         switch (event.getMovementType()) {
             case MOVE:
                 // Use foot step sounds for regular movement
-                return random.nextBoolean() ? "/Audio/foot_step_1.mp3" : "/Audio/foot_step_2.mp3";
+                // return random.nextBoolean() ? "5movement0.wav" : "/Audio/foot_step_2.mp3";
+                return  "/Audio/5movement0.wav";
             case JUMP:
                 // Use jump sound for jumps
                 return "/Audio/jump.wav";
@@ -73,6 +81,7 @@ public class MovementSoundPlayer implements IEventListener<MovementEvent> {
      * Actually plays the sound using Java Sound API
      */
     private void playSound(String soundFile) throws Exception {
+        System.out.println(soundFile);
         // Check cache first for better performance
         Clip clip = audioCache.get(soundFile);
         
@@ -146,5 +155,11 @@ public class MovementSoundPlayer implements IEventListener<MovementEvent> {
      */
     public void testPlaySound(String soundFile) {
         playSoundAsync(soundFile);
+    }
+
+    @Override
+    public void onEvent(GameEvent event) {
+        onEvent(new MovementEvent(EPieceType.B, new Position(0,0), new Position(1,1)));
+
     }
 }

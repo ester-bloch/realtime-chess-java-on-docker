@@ -4,6 +4,7 @@ import events.EEventType;
 import events.EventPublisher;
 import events.GameEvent;
 import events.IEventListener;
+import events.soundEvents.MovementSoundPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +47,7 @@ public class PlayerInfoPanel extends JPanel implements IEventListener {
         EventPublisher.getInstance().subscribe(EEventType.GAME_ENDED, this);
         EventPublisher.getInstance().subscribe(EEventType.GAME_STARTED, this);
         EventPublisher.getInstance().subscribe(EEventType.PIECE_CAPTURED, this);
+        EventPublisher.getInstance().subscribe(EEventType.PIECE_MOVED, new MovementSoundPlayer());
     }
 
     @Override

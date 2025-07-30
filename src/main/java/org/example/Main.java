@@ -2,6 +2,9 @@ package org.example;
 
 import board.BoardConfig;
 import board.Dimension;
+import events.soundEvents.EventBus;
+import events.soundEvents.MovementEvent;
+import events.soundEvents.MovementSoundPlayer;
 import game.Game;
 import interfaces.IGame;
 import interfaces.IPlayer;
@@ -16,6 +19,10 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            //ToDo: here is an initial trying to play a sound
+            MovementSoundPlayer movementSoundPlayer = new MovementSoundPlayer();
+            EventBus.getInstance().subscribe(movementSoundPlayer);
+           
             JFrame frame = new JFrame("KFChess");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
